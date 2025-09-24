@@ -12,7 +12,7 @@
   .box input{width:100%;height:44px;margin:8px 0 15px;padding:0 10px;border:1px solid #ccc;border-radius:4px;font-size:15px}
   .box button{height:40px;border:none;border-radius:4px;background:#e60012;color:#fff;font-size:14px;cursor:pointer}
   .box #getBtn{width:80px;padding:0 10px}
-  .box #submitBtn{width:100%;margin-top:20px;eight:40px;border:none;border-radius:4px;background:#e60012;color:#fff;font-size:14px;cursor:pointer}
+  .box #submitBtn{width:100%;margin-top:20px;height:40px;border:none;border-radius:4px;background:#e60012;color:#fff;font-size:14px;cursor:pointer}
   .box button:disabled{background:#ccc;cursor:not-allowed}
   .error{border-color:#e60012!important}
   .ok{border-color:#5cb85c!important}
@@ -62,19 +62,19 @@ btn.onclick = function () {
   alert('短信验证码已发送：' + lastSentCode);
 };
 
-function verifyCode() {
-  const currentCode = codeInput.value.trim();
-  /* 2. 比较“用户输入”与“刚才下发的” */
-  submitBtn.disabled = currentCode !== lastSentCode;
+function verifyCode(){
+    const currentCode = codeInput.value.trim();
+    submitBtn.disabled = currentCode.length !== 6 || currentCode !== lastSentCode;
 }
 codeInput.addEventListener('input', verifyCode);
-submitBtn.onclick = function() {
-  if(!submitBtn.disabled) {
-    // 处理表单提交逻辑
-
-    alert('提交成功！');
-  }
-}
+submitBtn.onclick = function(e){
+    e.preventDefault();          // 阻止页面刷新
+    if(!submitBtn.disabled){
+        alert('提交成功！');
+        // 这里再写真正的 ajax/fetch 提交
+    }
+};
 </script>
 </body>
 </html>
+
